@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Udemy Offline Helper",
+  "version": "1.1.1",
+  "description": "Nhận diện và lưu bài giảng HLS MPEG-TS không mã hóa từ phiên Udemy của bạn.",
+  "minimum_chrome_version": "116",
+  "permissions": [
+    "webRequest",
+    "storage",
+    "downloads",
+    "offscreen"
+  ],
+  "host_permissions": [
+    "https://*.udemy.com/*",
+    "https://*.udemycdn.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Tải bài Udemy · Full HD",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.udemy.com/course/*"
+      ],
+      "js": [
+        "lesson-content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
